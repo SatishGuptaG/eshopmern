@@ -4,7 +4,7 @@ import { IoBagHandleOutline } from "react-icons/io5";
 import { HiOutlineMinus, HiPlus } from "react-icons/hi";
 import styles from "../../styles/styles";
 import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
+//import { toast } from "react-toastify";
 
 const Cart = ({ setOpenCart }) => {
   const cartData = [
@@ -40,8 +40,7 @@ const Cart = ({ setOpenCart }) => {
           <div className={`${styles.noramlFlex} p-4`}>
             <IoBagHandleOutline size={25} />
             <h5 className="pl-2 text-[20px] font-[500]">
-              {/* {cart && cart.length} items */}
-              3
+              {/* {cart && cart.length} items */}3
             </h5>
           </div>
           {/* cart Single Items */}
@@ -52,8 +51,6 @@ const Cart = ({ setOpenCart }) => {
                 <CartSingle
                   key={index}
                   data={i}
-                  //   quantityChangeHandler={quantityChangeHandler}
-                  //   removeFromCartHandler={removeFromCartHandler}
                 />
               ))}
           </div>
@@ -75,25 +72,9 @@ const Cart = ({ setOpenCart }) => {
   );
 };
 
-const CartSingle = ({ data}) => {
+const CartSingle = ({ data }) => {
   const [value, setValue] = useState(1);
-  const totalPrice = data.rice * value;
-
-//   const increment = (data) => {
-//     if (data.stock < value) {
-//       toast.error("Product stock limited!");
-//     } else {
-//       setValue(value + 1);
-//       const updateCartData = { ...data, qty: value + 1 };
-//       quantityChangeHandler(updateCartData);
-//     }
-//   };
-
-//   const decrement = (data) => {
-//     setValue(value === 1 ? 1 : value - 1);
-//     const updateCartData = { ...data, qty: value === 1 ? 1 : value - 1 };
-//     quantityChangeHandler(updateCartData);
-  
+  const totalPrice = data.price * value;
 
   return (
     <div className="border-b p-4">
