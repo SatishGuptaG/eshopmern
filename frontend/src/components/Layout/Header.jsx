@@ -14,7 +14,7 @@ import DropDown from "./DropDown";
 import Navbar from "./Navbar";
 import { useSelector } from "react-redux";
 import Cart from "../cart/Cart";
-//import Wishlist from "../Wishlist/Wishlist.jsx";
+import Wishlist from "../Wishlist/Wishlist";
 //import { RxCross1 } from "react-icons/rx";
 import { backend_url } from "../../server";
 
@@ -143,7 +143,7 @@ const Header = ({ activeHeading }) => {
             <div className={`${styles.noramlFlex}`}>
               <div
                 className="relative cursor-pointer mr-[15px]"
-                // onClick={() => setOpenWishlist(true)}
+                 onClick={() => setOpenWishlist(true)}
               >
                 <AiOutlineHeart size={30} color="rgb(255 255 255 / 83%)" />
                 <span className="absolute right-0 top-0 rounded-full bg-[#3bc177] w-4 h-4 top right p-0 m-0 text-white font-mono text-[12px] leading-tight text-center">
@@ -155,7 +155,7 @@ const Header = ({ activeHeading }) => {
             <div className={`${styles.noramlFlex}`}>
               <div
                 className="relative cursor-pointer mr-[15px]"
-                 onClick={() => setOpenCart(true)}
+                onClick={() => setOpenCart(true)}
               >
                 <AiOutlineShoppingCart
                   size={30}
@@ -186,8 +186,18 @@ const Header = ({ activeHeading }) => {
             </div>
 
             {/* Cart Popup */}
-            {openCart ? <Cart setOpenCart={setOpenCart} /> : null}
+            {
+            openCart ? ( 
+            <Cart setOpenCart={setOpenCart} /> 
+            ) : null
+            }
 
+             {/* Wishlist Popup */}
+             {
+            openWishlist ? ( 
+            <Wishlist setOpenWishlist={setOpenWishlist} /> 
+            ) : null
+            }
           </div>
         </div>
       </div>
