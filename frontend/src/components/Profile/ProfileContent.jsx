@@ -50,22 +50,22 @@ const [address2, setAddress2] = useState(user && user.address2);
           <br />
           <div className="w-full px-5">
             <form onSubmit={handleSubmit} arial-required={true}>
-              <div className="w-full pb-3 flex">
-                <div className="w-[50%]">
+              <div className="w-full pb-3 800px:flex block">
+                <div className="w-[100%] 800px:w-[50%]">
                   <label className="block pb-3">Full Name</label>
                   <input
                     type="text"
-                    className={`${styles.input} !w-[95%]`}
+                    className={`${styles.input} !w-[95%] mb-4 800px:mb-0`}
                     required
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                   />
                 </div>
-                <div className="w-[50%]">
+                <div className="w-[100%] 800px:w-[50%]">
                   <label className="block pb-3">Email Address</label>
                   <input
                     type="text"
-                    className={`${styles.input} !w-[95%]`}
+                    className={`${styles.input} !w-[95%] mb-1 800px:mb-0`}
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -73,22 +73,22 @@ const [address2, setAddress2] = useState(user && user.address2);
                 </div>
               </div>
 
-              <div className="w-full pb-3 flex">
-                <div className="w-[50%]">
+              <div className="w-full pb-3 800px:flex block">
+                <div className="w-[100%] 800px:w-[50%]">
                   <label className="block pb-3">Phone Number</label>
                   <input
                     type="number"
-                    className={`${styles.input} !w-[95%]`}
+                    className={`${styles.input} !w-[95%] mb-4 800px:mb-0`}
                     required
                     value={phoneNumber}
                     onChange={(e) => setPhoneNumber(e.target.value)}
                   />
                 </div>
-                <div className="w-[50%]">
+                <div className="w-[100%] 800px:w-[50%]">
                   <label className="block pb-3">Zip Code</label>
                   <input
                     type="text"
-                    className={`${styles.input} !w-[95%]`}
+                    className={`${styles.input} !w-[95%] mb-1 800px:mb-0`}
                     required
                     value={zipCode}
                     onChange={(e) => setZipCode(e.target.value)}
@@ -96,22 +96,22 @@ const [address2, setAddress2] = useState(user && user.address2);
                 </div>
               </div>
 
-              <div className="w-full pb-3 flex">
-                <div className="w-[50%]">
+              <div className="w-full pb-3 800px:flex block">
+                <div className="w-[100%] 800px:w-[50%]">
                   <label className="block pb-3">Address 1</label>
                   <input
                     type="address"
-                    className={`${styles.input} !w-[95%]`}
+                    className={`${styles.input} !w-[95%] mb-4 800px:mb-0`}
                     required
                     value={address1}
                     onChange={(e) => setAddress1(e.target.value)}
                   />
                 </div>
-                <div className="w-[50%]">
+                <div className="w-[100%] 800px:w-[50%]">
                   <label className="block pb-3">Address 2</label>
                   <input
                     type="address"
-                    className={`${styles.input} !w-[95%]`}
+                    className={`${styles.input} !w-[95%] mb-4 800px:mb-0`}
                     required
                     value={address2}
                     onChange={(e) => setAddress2(e.target.value)}
@@ -149,7 +149,7 @@ const [address2, setAddress2] = useState(user && user.address2);
         </div>
       )}
       {/* PaymentMethod order */}
-      {active === 33 && (
+      {active === 6 && (
         <div>
           <PaymentMethod />
         </div>
@@ -164,17 +164,15 @@ const [address2, setAddress2] = useState(user && user.address2);
   );
 };
 const AllOrders = () => {
-  // const { user } = useSelector((state) => state.user);
-  // const dispatch = useDispatch();
   const orders = [
     {
-      _id: "734253245234dg",
+      _id: "734253245230dg",
       oderItems: [
         {
           name: "Iphone 12 pro max",
         },
       ],
-      totalPrice: 123,
+      totalPrice: 120,
       orderStatus: "Processing",
     },
   ];
@@ -218,96 +216,7 @@ const AllOrders = () => {
       renderCell: (params) => {
         return (
           <>
-            <Link to={`/user/order/${params.id}`}>
-              <Button>
-                <AiOutlineArrowRight size={20} />
-              </Button>
-            </Link>
-          </>
-        );
-      },
-    },
-  ];
-
-  const row = [];
-
-   orders &&
-     orders.forEach((item) => {
-       row.push({
-         id: item._id,
-         itemsQty: item.oderItems.length,
-         total: "US$ " + orders.totalPrice,
-         status: orders.orderStatus,
-       });
-     });
-
-  return (
-    <div className="pl-8 pt-1">
-      <DataGrid
-        rows={row}
-        columns={columns}
-        pageSize={10}
-        disableSelectionOnClick
-        autoHeight
-      />
-    </div>
-  );
-};
-
-const AllRefundOrders = () => {
-  const orders = [
-    {
-      _id: "734253245234dg",
-      oderItems: [
-        {
-          name: "Iphone 12 pro max",
-        },
-      ],
-      totalPrice: 123,
-      orderStatus: "Processing",
-    },
-  ];
-  const columns = [
-    { field: "id", headerName: "Order ID", minWidth: 150, flex: 0.7 },
-
-    {
-      field: "status",
-      headerName: "Status",
-      minWidth: 130,
-      flex: 0.7,
-      cellClassName: (params) => {
-        return params.getValue(params.id, "status") === "Delivered"
-          ? "greenColor"
-          : "redColor";
-      },
-    },
-    {
-      field: "itemsQty",
-      headerName: "Items Qty",
-      type: "number",
-      minWidth: 130,
-      flex: 0.7,
-    },
-
-    {
-      field: "total",
-      headerName: "Total",
-      type: "number",
-      minWidth: 130,
-      flex: 0.8,
-    },
-
-    {
-      field: " ",
-      flex: 1,
-      minWidth: 150,
-      headerName: "",
-      type: "number",
-      sortable: false,
-      renderCell: (params) => {
-        return (
-          <>
-            <Link to={`/user/order/${params.id}`}>
+            <Link to={`/order/${params.id}`}>
               <Button>
                 <AiOutlineArrowRight size={20} />
               </Button>
@@ -326,19 +235,108 @@ const AllRefundOrders = () => {
         id: item._id,
         itemsQty: item.oderItems.length,
         total: "US$ " + item.totalPrice,
-        status: item.orderstatus,
+        status: item.orderStatus,
       });
     });
 
   return (
     <div className="pl-8 pt-1">
-      {/* <DataGrid
+      <DataGrid
         rows={row}
         columns={columns}
         pageSize={10}
         autoHeight
         disableSelectionOnClick
-      /> */}
+      />
+    </div>
+  );
+};
+
+const AllRefundOrders = () => {
+  const orders = [
+    {
+      _id: "734253245235dg",
+      oderItems: [
+        {
+          name: "Iphone 12 pro max",
+        },
+      ],
+      totalPrice: 124,
+      orderStatus: "Processing",
+    },
+  ];
+  const columns = [
+    { field: "id", headerName: "Order ID", minWidth: 150, flex: 0.7 },
+
+    {
+      field: "status",
+      headerName: "Status",
+      minWidth: 130,
+      flex: 0.7,
+      cellClassName: (params) => {
+        return params.getValue(params.id, "status") === "Delivered"
+          ? "greenColor"
+          : "redColor";
+      },
+    },
+    {
+      field: "itemsQty",
+      headerName: "Items Qty",
+      type: "number",
+      minWidth: 130,
+      flex: 0.7,
+    },
+
+    {
+      field: "total",
+      headerName: "Total",
+      type: "number",
+      minWidth: 130,
+      flex: 0.8,
+    },
+
+    {
+      field: " ",
+      flex: 1,
+      minWidth: 150,
+      headerName: "",
+      type: "number",
+      sortable: false,
+      renderCell: (params) => {
+        return (
+          <>
+            <Link to={`/order/${params.id}`}>
+              <Button>
+                <AiOutlineArrowRight size={20} />
+              </Button>
+            </Link>
+          </>
+        );
+      },
+    },
+  ];
+
+  const row = [];
+
+  orders &&
+    orders.forEach((item) => {
+      row.push({
+        id: item._id,
+        itemsQty: item.oderItems.length,
+        total: "US$ " + item.totalPrice,
+        status: item.orderStatus,
+      });
+    });
+
+  return (
+    <div className="pl-8 pt-1">
+      <DataGrid
+        rows={row}
+        columns={columns}
+        pageSize={10}
+        autoHeight
+        disableSelectionOnClick
+      />
     </div>
   );
 };
@@ -346,13 +344,13 @@ const AllRefundOrders = () => {
 const TrackOrder = () => {
   const orders =[
     {
-      _id:"734253245234dg",
+      _id:"734253245235dg",
       oderItems:[
         {
           name:"Iphone 12 pro max",
         },
       ],
-      totalPrice:123,
+      totalPrice:125,
       orderStatus:"Processing",
     }
   ]
@@ -396,7 +394,7 @@ const TrackOrder = () => {
       renderCell: (params) => {
         return (
           <>
-            <Link to={`/user/track/order/${params.id}`}>
+            <Link to={`/order/${params.id}`}>
               <Button>
                 <MdTrackChanges size={20} />
               </Button>
@@ -449,11 +447,11 @@ const PaymentMethod =()=>{
         <img src="https://www.freepnglogos.com/uploads/visa-logo-icon-30.png" 
         className="w-[40px] h-[10px]"
         alt="" />
-        <h5 className="pl-5 font-[600]">aviasnh gupta</h5>
+        <h5 className="pl-5 font-[600]"> Satish Gupta</h5>
       </div>
       <div className="pl-8 flex items-center">
-        <h6>1234 ***** *** ****</h6>
-        <h5 className="pl-6">06/2022</h5>
+        <h6>3453 **** 9806</h6>
+        <h5 className="pl-6">16/2023</h5>
       </div>
       <div className="min-w-[10%] flex items-center justify-between pl-8">
         <AiOutlineDelete size={25} className="cursor-pointer"/>
