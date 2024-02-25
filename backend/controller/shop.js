@@ -9,8 +9,11 @@ const fs = require("fs");
 const jwt = require("jsonwebtoken");
 const sendMail = require("../utils/sendMail");
 const sendToken = require("../utils/jwtToken");
-//const sendShopToken = require("../utils/shopToken");
 const { isSeller } = require("../middleware/auth");
+const user = require("../model/user");
+const sendShopToken = require("../utils/shopToken");
+const shop = require("../model/shop");
+const { isAuthenticated } = require('../middleware/auth');
 // create shop
 router.post("/create-shop", upload.single("file"), async (req, res, next) => {
   try {
@@ -111,10 +114,65 @@ console.log(
         phoneNumber,
       });
 
-      sendToken(seller, 201, res);
+      sendShopToken(shop, 201, res);
     } catch (error) {
       return next(new ErrorHandler(error.message, 500));
     }
   })
 );
+
+// login shop
+router.post(
+  "/login-shop",
+  catchAsyncErrors(async (req, res, next) => {
+    try {
+      const { email, password } = req.body;
+
+      if (!email || !password) {
+        return next(new ErrorHandler("Please provide the all fields!", 400));
+      }
+
+      const shop = await Shop.findOne({ email }).select("+password");
+
+      if (!shop) {
+        return next(new ErrorHandler("Seller doesn't exists!", 400));
+      }
+
+      const isPasswordValid = await shop.comparePassword(password);
+
+      if (!isPasswordValid) {
+        return next(
+          new ErrorHandler("Please provide the correct information", 400)
+        );
+      }
+
+      sendShopToken(shop, 201, res);
+    } catch (error) {
+      return next(new ErrorHandler(error.message, 500));
+    }
+  })
+);
+//  load shop
+router.get(
+  '/getSeller',
+  isSeller,
+  catchAsyncErrors(async (req, res, next) => {
+    try {
+      console.log(req.seller);
+      const seller = await Shop.findById(req.seller.id);
+
+      if (!seller) {
+        return next(new ErrorHandler("User doesn't exists", 400));
+      }
+
+      res.status(200).json({
+        success: true,
+        seller,
+      });
+    } catch (error) {
+      return next(new ErrorHandler(error.message, 500));
+    }
+  }),
+);
+
 module.exports = router;
